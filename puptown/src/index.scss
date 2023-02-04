@@ -1,17 +1,24 @@
 $body-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
 sans-serif;
+
 $color: pink;
+$Maroon: #8C030E;
+$Red: #BF0426;
+$Light-red: #D9183B;
+$Dark-brown: #400D01;
+$Black: #000000;
+$White: #FFFFFF;
+
+
 
 body {
   margin: 0;
   font-family: $body-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $color;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  color: $Black;
+  box-sizing: border-box;
+  max-width: 100vw;
+  min-height: 100vh;
 }

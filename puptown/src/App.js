@@ -1,11 +1,10 @@
 import './App.scss';
+import Navbar from  './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <h3 class='d-flex justify-content-center m-2'>
-        Pup Town
-      </h3>
+    <div className='App'>
+      <Navbar />
     </div>
   );
 }
