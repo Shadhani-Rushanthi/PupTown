@@ -23,9 +23,11 @@ namespace WebApplication4.Models
 
         public int profileImage { get; set; }
 
-        public int coverImage { get; set; }
+        public string email { get; set; }
 
         public string gender { get; set; }
+        public string passwrd { get; set; }
+
 
 
 

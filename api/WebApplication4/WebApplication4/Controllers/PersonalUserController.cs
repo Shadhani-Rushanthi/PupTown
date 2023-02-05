@@ -22,12 +22,12 @@ namespace WebApplication4.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet]
-        public JsonResult Get()
+        [HttpGet ("{email}/{passwrd}")]
+        public JsonResult Get(string email, string passwrd)
         {
             string query = @"
-                            select userId,breed,birthday,openforbreading,name,createdDate,modifiedDate,profileImage,coverImage,gender from
-                            dbo.Personal_User
+                            select userId,breed,birthday,openforbreading,name,createdDate,modifiedDate,profileImage,gender from
+                            dbo.Personal_User where email = @email and passwrd = @passwrd
                             ";
 
             DataTable table = new DataTable();
@@ -38,6 +38,10 @@ namespace WebApplication4.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
+
+                    myCommand.Parameters.AddWithValue("@email", email);
+                    myCommand.Parameters.AddWithValue("@passwrd", passwrd);
+
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
@@ -53,8 +57,8 @@ namespace WebApplication4.Controllers
         {
             string query = @"
                            insert into dbo.Personal_User
-                           (userId,breed,birthday,openforbreading,name,createdDate,modifiedDate,profileImage,coverImage,gender)
-                    values (@userId,@breed,@birthday,@openforbreading,@name,@createdDate,@modifiedDate,@profileImage,@coverImage,@gender)
+                           (userId,breed,birthday,openforbreading,name,createdDate,modifiedDate,profileImage,email,gender,passwrd)
+                    values (@userId,@breed,@birthday,@openforbreading,@name,getDate(),getDate(),@profileImage,@email,@gender,@passwrd)
                             ";
 
             DataTable table = new DataTable();
@@ -70,11 +74,12 @@ namespace WebApplication4.Controllers
                     myCommand.Parameters.AddWithValue("@birthday", Psu.birthday);
                     myCommand.Parameters.AddWithValue("@openforbreading", Psu.openforbreading);
                     myCommand.Parameters.AddWithValue("@name", Psu.name);
-                    myCommand.Parameters.AddWithValue("@createdDate", Psu.createdDate);
-                    myCommand.Parameters.AddWithValue("@modifiedDate", Psu.modifiedDate);
+                    //myCommand.Parameters.AddWithValue("@createdDate", Psu.createdDate);
+                    //myCommand.Parameters.AddWithValue("@modifiedDate", Psu.modifiedDate);
                     myCommand.Parameters.AddWithValue("@profileImage", Convert.ToByte(Psu.profileImage));
-                    myCommand.Parameters.AddWithValue("@coverImage", Convert.ToByte(Psu.coverImage));
+                    myCommand.Parameters.AddWithValue("@email", Psu.email);
                     myCommand.Parameters.AddWithValue("@gender", Psu.gender);
+                    myCommand.Parameters.AddWithValue("@passwrd", Psu.passwrd);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
@@ -94,11 +99,11 @@ namespace WebApplication4.Controllers
                             birthday=@birthday,
                             openforbreading=@openforbreading,
                             name=@name,
-                            createdDate=@createdDate,
-                            modifiedDate=@modifiedDate,
+                            modifiedDate=getDate(),
                             profileImage=@profileImage,
-                            coverImage=@coverImage,
-                            gender=@gender
+                            email=@email,
+                            gender=@gender,
+                            passwrd=@passwrd
                             where userId=@userId
                             ";
 
@@ -115,11 +120,10 @@ namespace WebApplication4.Controllers
                     myCommand.Parameters.AddWithValue("@birthday", Psu.birthday);
                     myCommand.Parameters.AddWithValue("@openforbreading", Psu.openforbreading);
                     myCommand.Parameters.AddWithValue("@name", Psu.name);
-                    myCommand.Parameters.AddWithValue("@createdDate", Psu.createdDate);
-                    myCommand.Parameters.AddWithValue("@modifiedDate", Psu.modifiedDate);
                     myCommand.Parameters.AddWithValue("@profileImage", Convert.ToByte(Psu.profileImage));
-                    myCommand.Parameters.AddWithValue("@coverImage", Convert.ToByte(Psu.coverImage));
+                    myCommand.Parameters.AddWithValue("@email", Psu.email);
                     myCommand.Parameters.AddWithValue("@gender", Psu.gender);
+                    myCommand.Parameters.AddWithValue("@passwrd", Psu.passwrd);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
