@@ -74,3 +74,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 npm install node-sass
 npm i react-refresh
 npm install --save styled-components
+npm i react-router-dom
+npm i react-bootstrap

@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import '../index.scss'
 import logo from '../images/logo.svg'
+import dog from '../images/dog.svg'
+import notification from '../images/notification.png'
 
 const NavBarContainer = styled.div`
   width: 100%;
@@ -12,7 +14,7 @@ const NavBarContainer = styled.div`
   justify-content:center;
   align-items: center;
   margin:0;
-  padding: 5px 20px;
+  padding: 5px 10%;
   box-sizing: border-box;
   box-shadow: 2px 2px 8px 5px rgba(0, 0, 0, 0.1);
 `
@@ -20,7 +22,7 @@ const NavBarContainer = styled.div`
 const LeftContainer = styled.div`
   width: 20%;
   height: 100%;
-  border: 1px solid black;
+  // border: 1px solid black;
 `
 
 const Logo = styled.img`
@@ -30,32 +32,51 @@ const Logo = styled.img`
 const RightContainer = styled.div`
   height: 100%;
   width: 80%;
-  border: 1px solid black;
+  // border: 1px solid black;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+`
+
+const SignInItems = styled.div`
   display:flex;
   flex-direction: row;
   justify-content:center;
   align-items: center;
 `
 
-const SignInItems = styled.ul`
-  width: 100%;
-  heigh: 100%;
-
-`
-
-const SignOutItems = styled.ul`
+const SignOutItems = styled.div`
   display: flex;
   flex-direction: row;
   align-items:center;
   justify-content: space-between;
 `
 
-const Item = styled.li`
-
+const Box = styled.div`
+border-left: 2px solid #D9183B;
 `
 
+const Item = styled.a`
+  padding: 5px 20px;  
+  color: #D9183B;
+  font-weight:500;
+
+`
+const ProfileLogo = styled.img`
+  margin: 5px 20px 5px 30px; 
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;  
+`
 
 const Navbar = () => {
+  var logged = true;
+
+  const logOut = () => {
+    logged = false;
+  }
+
   return (
     <>
       <NavBarContainer>
@@ -64,24 +85,39 @@ const Navbar = () => {
         </LeftContainer>
 
         <RightContainer>
-          <SignInItems>
-            <Item href="./"></Item>
-            <Item href="./landing"></Item>
-            <Item href="./profile"></Item>
-          </SignInItems>
-          <SignOutItems>
-            hi hi right
-          </SignOutItems>
+          {
+            logged ? 
+            <>
+              <SignOutItems>
+                <Item href='./Home'>Home</Item>
+                <Item href='./profile'>Communities</Item>
+                <Item href='./Home'>Messages</Item>
+                <Item href='./Home'>Find Your Match</Item>
+                <Item href='./profile'>Profile</Item>
+                <Item href='./Home'>
+                  <Logo src={notification}/>
+                </Item>
+                <ProfileLogo src={dog} onClick={logOut}/>
+              </SignOutItems>
+            </>
+            : 
+            <>
+              <SignInItems>
+                <Item href='./'>About</Item>
+                <Item href='./home'>Help</Item>
+                <Box>
+                  <Item href='./signIn'>SignIn</Item>
+                  <Item  href='./signUp' className='signUp'>SignUp</Item>
+                </Box>
+              </SignInItems>
+            </>
+          }
+
+
         </RightContainer>
       </NavBarContainer>
     </>
   )
 }
-
-// const Container = styled.div`
-//   box-sizing: border-box;
-//   max-width: 100vw;
-//   min-height: 92px;
-//   // background-color: $Maroon;
 
 export default Navbar
