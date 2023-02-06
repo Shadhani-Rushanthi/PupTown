@@ -22,12 +22,12 @@ namespace WebApplication4.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet ("{email}/{passwrd}")]
+        [HttpGet]
         public JsonResult Get(string email, string passwrd)
         {
             string query = @"
-                            select userId,breed,birthday,openforbreading,name,createdDate,modifiedDate,profileImage,gender from
-                            dbo.Personal_User where email = @email and passwrd = @passwrd
+                            select userId,breed,birthday,openforbreading,name,createdDate,modifiedDate,profileImage,gender,email,passwrd from
+                            dbo.Personal_User
                             ";
 
             DataTable table = new DataTable();
@@ -38,10 +38,6 @@ namespace WebApplication4.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-
-                    myCommand.Parameters.AddWithValue("@email", email);
-                    myCommand.Parameters.AddWithValue("@passwrd", passwrd);
-
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
